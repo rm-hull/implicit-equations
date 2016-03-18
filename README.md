@@ -1,8 +1,15 @@
 # Implicit Equations [![Build Status](https://travis-ci.org/rm-hull/implicit-equations.svg?branch=master)](http://travis-ci.org/rm-hull/implicit-equations) [![Coverage Status](https://coveralls.io/repos/rm-hull/implicit-equations/badge.svg?branch=master)](https://coveralls.io/r/rm-hull/implicit-equations?branch=master) [![Dependencies Status](https://jarkeeper.com/rm-hull/implicit-equations/status.svg)](https://jarkeeper.com/rm-hull/implicit-equations)
 
+## References
 
+* http://www.xamuel.com/graphs-of-implicit-equations/
+* http://www.peda.com/grafeq/
+* http://www.padowan.dk/
+* http://doc.sagemath.org/html/en/reference/plot3d/sage/plot/plot3d/implicit_plot3d.html
 
-## The MIT License (MIT)
+## License
+
+The MIT License (MIT)
 
 Copyright (c) 2016 Richard Hull
 
