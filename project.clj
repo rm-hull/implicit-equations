@@ -1,11 +1,12 @@
-(defproject rm-hull/infix "0.0.1"
+(defproject rm-hull/implicit-equations "0.0.1"
   :description "A graphing library for implicit equations, in Clojure"
   :url "https://github.com/rm-hull/implicit-equations"
   :license {
     :name "The MIT License (MIT)"
     :url "http://opensource.org/licenses/MIT"}
   :dependencies [
-    [org.clojure/clojure "1.8.0"]]
+    [org.clojure/clojure "1.8.0"]
+    [rm-hull/infix "0.1.2"]]
   :scm {:url "git@github.com:rm-hull/implicit-equations.git"}
   :plugins [
     [codox "0.9.1"] ]
