@@ -6,7 +6,7 @@
     :url "http://opensource.org/licenses/MIT"}
   :dependencies [
     [org.clojure/clojure "1.8.0"]
-    [rm-hull/infix "0.1.2"]]
+    [rm-hull/infix "0.2.6"]]
   :scm {:url "git@github.com:rm-hull/implicit-equations.git"}
   :plugins [
     [codox "0.9.1"] ]
@@ -17,7 +17,7 @@
     :output-dir "doc/api"
     :src-dir-uri "http://github.com/rm-hull/implicit-equations/blob/master/"
     :src-linenum-anchor-prefix "L" }
-  :min-lein-version "2.5.3"
+  :min-lein-version "2.6.1"
   :profiles {
     :dev {
       :global-vars {*warn-on-reflection* true}
