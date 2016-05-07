@@ -150,7 +150,7 @@
     (infix exp(sin x + cos y) - sin(exp(x + y))))
 
   (defn dizzy [x y]
-    (infix abs(x ** 2 - y ** 2) - (sin(x + y) + cos(x . y))))
+    (infix abs(sin(x ** 2 - y ** 2)) - (sin(x + y) + cos(x . y))))
 
   (time (draw quadrifolium "doc/quadrifolium.png" { :bounds 1 :line-width 4}))
   (time (draw knot-curve "doc/knot-curve.png" { :bounds 5 :line-width 2}))
