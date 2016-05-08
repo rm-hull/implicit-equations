@@ -121,7 +121,7 @@
     (infix abs(sin(x ** 2 - y ** 2)) - (sin(x + y) + cos(x . y))))
 
   (defn bands [x y]
-    (infix (csc(1 - (x ** 2)) . cot(2 - (y ** 2))) - (x . y)))
+    (infix sin(1 - x ** 2) . sin(2 - y ** 2) . x . y - cos (2 - y ** 2)))
 
   (defn glint [x y]
     (infix abs(sin(x ** 2 + 2 . x . y)) - sin(x - 2 . y)))
@@ -135,7 +135,7 @@
   (time (draw chain-mesh "doc/chain-mesh.png"))
   (time (draw checkerboard "doc/checkerboard.png"))
   (time (draw dizzy "doc/dizzy.png"))
-  (time (draw bands "doc/bands.png"))
+  (time (draw bands "doc/bands.png" { :bounds (* 2 Math/PI) }))
   (time (draw glint "doc/glint.png"))
   (time (draw spira "doc/spira.png"))
 

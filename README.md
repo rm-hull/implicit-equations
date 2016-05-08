@@ -82,12 +82,23 @@ Other equations produce the following plots:
   (infix sin(x ** 2 + y ** 2) - sin(x ÷ y ** 2))
 ```
 
+### Bands
+![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/bands.png)
+
+```clojure
+(defn bands [x y]
+  (infix sin(1 - x ** 2) . sin(2 - y ** 2) . x . y - cos (2 - y ** 2)))
+```
+
+Refined from: http://mathematica.stackexchange.com/questions/19590/what-is-a-good-way-to-plot-some-difficult-implicit-equations
+
 ## References
 
 * http://www.xamuel.com/graphs-of-implicit-equations/
 * http://www.peda.com/grafeq/
 * http://www.padowan.dk/
 * http://doc.sagemath.org/html/en/reference/plot3d/sage/plot/plot3d/implicit_plot3d.html
+* http://mathematica.stackexchange.com/questions/69421/plot-of-implicit-equations
 
 ## License
 
