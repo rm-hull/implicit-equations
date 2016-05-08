@@ -10,7 +10,7 @@
     [rm-hull/infix "0.2.6"]]
   :scm {:url "git@github.com:rm-hull/implicit-equations.git"}
   :plugins [
-    [codox "0.9.1"] ]
+    [codox "0.9.5"] ]
   :source-paths ["src"]
   :jar-exclusions [#"(?:^|/).git"]
   :codox {
