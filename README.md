@@ -26,7 +26,7 @@ Given some X/Y equations (using the [infix](https://github.com/rm-hull/infix) li
   (infix exp(sin x + cos y) - sin(exp(x + y))))
 
 (defn dizzy [x y]
-  (infix abs(x ** 2 - y ** 2) - (sin(x + y) + cos(x . y))))
+  (infix abs(sin(x ** 2 - y ** 2)) - (sin(x + y) + cos(x . y))))
 ```
 
 By specifying some bounds, we can now render to PNG images, with the `draw`
