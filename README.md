@@ -4,7 +4,7 @@ Plotting implicit equations
 
 ## Examples
 
-Given some X/Y equations (using the [infix](https://github.com/rm-hull/infix) library):
+Given an X/Y equation (using the [infix](https://github.com/rm-hull/infix) library):
 
 ```clojure
 (use 'implicit-equations.plot)
@@ -12,25 +12,10 @@ Given some X/Y equations (using the [infix](https://github.com/rm-hull/infix) li
 
 (defn quadrifolium [x y]
   (infix (x ** 2 + y ** 2) ** 3 - x ** 2 * y ** 2))
-
-(defn knot-curve [x y]
-  (infix (x ** 2 - 1) ** 2 - y ** 2 . (3 + 2 . y)))
-
-(defn biology [x y]
-  (infix sin(sin x + cos y) - cos(sin(x . y) + cos x)))
-
-(defn chain-mesh [x y]
-  (infix sin((x ** 2) + (y ** 2)) - cos(x . y)))
-
-(defn checkerboard [x y]
-  (infix exp(sin x + cos y) - sin(exp(x + y))))
-
-(defn dizzy [x y]
-  (infix abs(sin(x ** 2 - y ** 2)) - (sin(x + y) + cos(x . y))))
 ```
 
 By specifying some bounds, we can now render to PNG images, with the `draw`
-command:
+command - this renders onto a `BufferedImage` when the equation crosses zero:
 
 ```clojure
 (draw quadrifolium "graph.png" {:bounds 1 :line-width 4})
@@ -39,22 +24,62 @@ to produce:
 
 ![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/quadrifolium.png)
 
-The other equations produce the following plots:
+Other equations produce the following plots:
 
 ### Knot Curve
 ![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/knot-curve.png)
 
+```clojure
+(defn knot-curve [x y]
+  (infix (x ** 2 - 1) ** 2 - y ** 2 . (3 + 2 . y)))
+```
 ### Biology
 ![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/biology.png)
+
+```clojure
+(defn biology [x y]
+  (infix sin(sin x + cos y) - cos(sin(x . y) + cos x)))
+``
 
 ### Chain-mesh
 ![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/chain-mesh.png)
 
+```clojure
+(defn chain-mesh [x y]
+  (infix sin((x ** 2) + (y ** 2)) - cos(x . y)))
+```
+
 ### Checkerboard
 ![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/checkerboard.png)
 
+```clojure
+(defn checkerboard [x y]
+  (infix exp(sin x + cos y) - sin(exp(x + y))))
+```
+
 ### Dizzy
 ![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/dizzy.png)
+
+```clojure
+(defn dizzy [x y]
+  (infix abs(sin(x ** 2 - y ** 2)) - (sin(x + y) + cos(x . y))))
+```
+
+### Glint
+![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/glint.png)
+
+```clojure
+(defn glint [x y]
+  (infix abs(sin(x ** 2 + 2 . x . y)) - sin(x - 2 . y)))
+```
+
+### Spira
+![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/spira.png)
+
+```clojure
+(defn spira [x y]
+  (infix sin(x ** 2 + y ** 2) - sin(x ÷ y ** 2))
+```
 
 ## References
 

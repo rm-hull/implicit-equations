@@ -92,6 +92,7 @@
 
   (use 'implicit-equations.plot)
   (use 'infix.macros)
+  (use 'infix.math)
 
   (defn draw [f name & [opts]]
     (let [opts (merge default-opts opts)
@@ -119,12 +120,24 @@
   (defn dizzy [x y]
     (infix abs(sin(x ** 2 - y ** 2)) - (sin(x + y) + cos(x . y))))
 
+  (defn bands [x y]
+    (infix (csc(1 - (x ** 2)) . cot(2 - (y ** 2))) - (x . y)))
+
+  (defn glint [x y]
+    (infix abs(sin(x ** 2 + 2 . x . y)) - sin(x - 2 . y)))
+
+  (defn spira [x y]
+    (infix sin(x ** 2 + y ** 2) - sin(x ÷ y ** 2)))
+
   (time (draw quadrifolium "doc/quadrifolium.png" { :bounds 1 :line-width 4}))
   (time (draw knot-curve "doc/knot-curve.png" { :bounds 5 :line-width 2}))
   (time (draw biology "doc/biology.png"))
   (time (draw chain-mesh "doc/chain-mesh.png"))
   (time (draw checkerboard "doc/checkerboard.png"))
   (time (draw dizzy "doc/dizzy.png"))
+  (time (draw bands "doc/bands.png"))
+  (time (draw glint "doc/glint.png"))
+  (time (draw spira "doc/spira.png"))
 
 )
 
