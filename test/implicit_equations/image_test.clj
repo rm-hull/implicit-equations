@@ -7,11 +7,13 @@
     [implicit-equations.image :refer :all]))
 
 (deftest check-opacity
+  (is (=  0x0EADBABE (opacity 0xADBABE 0x0E)))
   (is (= -0x00000001 (opacity 0xFFFFFF 0xFF)))
   (is (= -0x01000000 (opacity 0x000000 0xFF)))
   (is (= -0x00010000 (opacity 0xFF0000 0xFF))))
 
 (deftest check-alpha
+  (is (= 0x0E (alpha  0x0EADBABE)))
   (is (= 0xFF (alpha -0x00000001)))
   (is (= 0xFF (alpha -0x01000000)))
   (is (= 0xFF (alpha -0x00010000))))
