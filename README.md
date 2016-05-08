@@ -33,13 +33,14 @@ Other equations produce the following plots:
 (defn knot-curve [x y]
   (infix (x ** 2 - 1) ** 2 - y ** 2 . (3 + 2 . y)))
 ```
+
 ### Biology
 ![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/biology.png)
 
 ```clojure
 (defn biology [x y]
   (infix sin(sin x + cos y) - cos(sin(x . y) + cos x)))
-``
+```
 
 ### Chain-mesh
 ![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/chain-mesh.png)
