@@ -4,21 +4,8 @@
     [java.awt.image BufferedImage]
     [javax.imageio ImageIO]))
 
-(defn- unsigned [f bits]
-  (let [max-val (bit-shift-left 1 (dec bits))
-        neg (bit-shift-left 1 bits)]
-    (fn [n]
-      (f
-        (if (>= n max-val)
-          (- n neg)
-          n)))))
-
-(def ubyte (unsigned byte 8))
-(def ushort (unsigned short 16))
-(def uint (unsigned int 32))
-
 (defn opacity [rgb alpha]
-  (bit-or rgb (bit-shift-left (ubyte (bit-and 0xFF (int alpha))) 24)))
+  (bit-or rgb (bit-shift-left (unchecked-byte alpha) 24)))
 
 (defn alpha [rgba]
   (let [b (bit-shift-right rgba 24)]
