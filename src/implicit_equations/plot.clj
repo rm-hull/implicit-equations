@@ -1,9 +1,6 @@
 (ns implicit-equations.plot
   (:import
-    [java.awt.image BufferedImage]
-    [java.awt.geom AffineTransform GeneralPath Ellipse2D$Double]
-    [java.awt Color Graphics2D RenderingHints BasicStroke GraphicsEnvironment]
-    [javax.imageio ImageIO])
+    [java.awt.image BufferedImage])
   (:require
     [implicit-equations.image :refer :all]
     [infix.macros :refer [infix]]))
