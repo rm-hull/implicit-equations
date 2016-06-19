@@ -131,40 +131,51 @@
   (defn spira [x y]
     (infix sin(x ** 2 + y ** 2) - sin(x ÷ y ** 2)))
 
-  ; 320ms vs 917ms
+  ; 8-core   4-core   1-core
+  ; ========================
+  ; 184ms vs 320ms vs 917ms
   (time (draw 1 quadrifolium "doc/quadrifolium.png" { :bounds 1 :line-width 4}))
   (time (draw 4 quadrifolium "doc/quadrifolium.png" { :bounds 1 :line-width 4}))
+  (time (draw 8 quadrifolium "doc/quadrifolium.png" { :bounds 1 :line-width 4}))
 
-  ; 276ms vs 704ms
+  ; 176ms vs 276ms vs 704ms
   (time (draw 1 knot-curve "doc/knot-curve.png" { :bounds 5 :line-width 2}))
   (time (draw 4 knot-curve "doc/knot-curve.png" { :bounds 5 :line-width 2}))
+  (time (draw 8 knot-curve "doc/knot-curve.png" { :bounds 5 :line-width 2}))
 
-  ; 963 vs 2297ms
+  ; 575ms vs 963 vs 2297ms
   (time (draw 1 biology "doc/biology.png"))
   (time (draw 4 biology "doc/biology.png"))
+  (time (draw 8 biology "doc/biology.png"))
 
-  ; 1709ms vs 3204ms
+  ; 1280 vs 1709ms vs 3204ms
   (time (draw 1 chain-mesh "doc/chain-mesh.png"))
   (time (draw 4 chain-mesh "doc/chain-mesh.png"))
+  (time (draw 8 chain-mesh "doc/chain-mesh.png"))
 
-  ; 813ms vs 1736ms
+  ; 534ms vs 813ms vs 1736ms
   (time (draw 1 checkerboard "doc/checkerboard.png"))
   (time (draw 4 checkerboard "doc/checkerboard.png"))
+  (time (draw 8 checkerboard "doc/checkerboard.png"))
 
-  ; 1344ms vs 2821ms
+  ; 932ms vs 1344ms vs 2821ms
   (time (draw 1 dizzy "doc/dizzy.png"))
   (time (draw 4 dizzy "doc/dizzy.png"))
+  (time (draw 8 dizzy "doc/dizzy.png"))
 
   ; 984ms vs 2303ms
   (time (draw 1 bands "doc/bands.png" { :bounds (* 2 Math/PI) }))
   (time (draw 4 bands "doc/bands.png" { :bounds (* 2 Math/PI) }))
+  (time (draw 8 bands "doc/bands.png" { :bounds (* 2 Math/PI) }))
 
-  ; 1478ms vs 2804ms
+  ; 1044ms vs 1478ms vs 2804ms
   (time (draw 1 glint "doc/glint.png"))
   (time (draw 4 glint "doc/glint.png"))
+  (time (draw 8 glint "doc/glint.png"))
 
-  ; 1870ms vs 3579ms
+  ; 1409ms vs 1870ms vs 3579ms
   (time (draw 1 spira "doc/spira.png"))
   (time (draw 4 spira "doc/spira.png"))
+  (time (draw 8 spira "doc/spira.png"))
 )
 
