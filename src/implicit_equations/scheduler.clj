@@ -4,11 +4,11 @@
 
 (def ^:private ^ForkJoinPool pool (ForkJoinPool.))
 
-(defn submit [^ForkJoinTask fjtask]
+(defn submit [^ForkJoinTask task]
   (if (instance? ForkJoinWorkerThread (Thread/currentThread))
-    (.fork fjtask)
-    (.execute pool fjtask))
-  fjtask)
+    (.fork task)
+    (.execute pool task))
+  task)
 
 (defmacro task [& body]
   `(submit
