@@ -22,6 +22,10 @@
       (.setRenderingHint RenderingHints/KEY_RENDERING RenderingHints/VALUE_RENDER_QUALITY))
     g2d))
 
+(defn set-pixel [^BufferedImage img x y rgba]
+  (if (> (alpha rgba) (alpha (.getRGB img x y)))
+    (.setRGB img x y rgba)))
+
 (defn write-png [^BufferedImage image filename]
   (ImageIO/write image "png" (clojure.java.io/file filename)))
 

@@ -32,10 +32,6 @@
         solid-color (opacity rgb 0xFF)
         half-line-width (/ line-width 2)
 
-        set-pixel (fn [x y rgba]
-          (if (> (alpha rgba) (alpha (.getRGB img x y)))
-            (.setRGB img x y rgba)))
-
         calc-wx (fn [sign x y]
                   (if (= (f x y) sign)
                     (recur sign (+ x step) y)
