@@ -43,36 +43,41 @@
                     y))
 
         draw-horiz (fn [sign x y]
-                     (let [delta (- (calc-wx sign x y) x)
+                     (let [delta (* 0x100 (- (calc-wx sign x y) x))
                            left (max 0 (- x half-line-width))
                            right (min (dec width) (+ left line-width))]
-                       (set-pixel left y (opacity rgb (* 0x100 (- 1 delta))))
-                       (set-pixel right y (opacity rgb (* 0x100 delta)))
-                       (doseq [x (range (inc left) right)]
-                         (set-pixel x y solid-color))))
+                       (set-pixel img left y (opacity rgb (- 0x100 delta)))
+                       (set-pixel img right y (opacity rgb delta))
+                       (loop [x (inc left)]
+                         (when (< x right)
+                           (set-pixel img x y solid-color)
+                           (recur (inc x))))))
 
         draw-vert (fn [sign x y]
-                    (let [delta (- (calc-wy sign x y) y)
+                    (let [delta (* 0x100 (- (calc-wy sign x y) y))
                           top (max 0 (- y half-line-width))
                           bottom (min (dec height) (+ top line-width))]
-                      (set-pixel x top (opacity rgb (* 0x100 (- 1 delta))))
-                      (set-pixel x bottom (opacity rgb (* 0x100 delta)))
-                      (doseq [y (range (inc top) bottom)]
-                        (set-pixel x y solid-color))))]
+                      (set-pixel img x top (opacity rgb (- 0x100 delta)))
+                      (set-pixel img x bottom (opacity rgb delta))
+                      (loop [y (inc top)]
+                        (when (< y bottom)
+                          (set-pixel img x y solid-color)
+                          (recur (inc y))))))]
 
-    (doseq [y (range start end)
-            x (range width)
-            :let [sign (f x y)
-                  nsignx1 (f (+ x 0.5) y)
-                  nsignx2 (f (inc x) y)
-                  nsigny1 (f x (+ y 0.5))
-                  nsigny2 (f x (inc y))]]
+    (dotimes [y (- end start)]
+      (dotimes [x width]
+        (let [y (+ y start)
+              sign (f x y)
+              nsignx1 (f (+ x 0.5) y)
+              nsignx2 (f (inc x) y)
+              nsigny1 (f x (+ y 0.5))
+              nsigny2 (f x (inc y))]
 
-      (when (or (not= sign nsignx1) (not= sign nsignx2))
-        (draw-horiz sign x y))
+          (when (or (not= sign nsignx1) (not= sign nsignx2))
+            (draw-horiz sign x y))
 
-      (when (or (not= sign nsigny1) (not= sign nsigny2))
-        (draw-vert sign x y)))))
+          (when (or (not= sign nsigny1) (not= sign nsigny2))
+            (draw-vert sign x y)))))))
 
 (def default-opts {
   :bounds 10
