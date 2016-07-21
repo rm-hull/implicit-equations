@@ -99,6 +99,7 @@ Refined from: http://mathematica.stackexchange.com/questions/19590/what-is-a-goo
 * http://www.padowan.dk/
 * http://doc.sagemath.org/html/en/reference/plot3d/sage/plot/plot3d/implicit_plot3d.html
 * http://mathematica.stackexchange.com/questions/69421/plot-of-implicit-equations
+* http://wmueller.com/precalculus/newfunc/4.html
 
 ## License
 
