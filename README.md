@@ -1,4 +1,5 @@
-# Implicit Equations [![Build Status](https://travis-ci.org/rm-hull/implicit-equations.svg?branch=master)](http://travis-ci.org/rm-hull/implicit-equations) [![Coverage Status](https://coveralls.io/repos/rm-hull/implicit-equations/badge.svg?branch=master)](https://coveralls.io/r/rm-hull/implicit-equations?branch=master) [![Dependencies Status](https://jarkeeper.com/rm-hull/implicit-equations/status.svg)](https://jarkeeper.com/rm-hull/implicit-equations)
+# Implicit Equations
+[![Build Status](https://travis-ci.org/rm-hull/implicit-equations.svg?branch=master)](http://travis-ci.org/rm-hull/implicit-equations) [![Coverage Status](https://coveralls.io/repos/rm-hull/implicit-equations/badge.svg?branch=master)](https://coveralls.io/r/rm-hull/implicit-equations?branch=master) [![Dependencies Status](https://jarkeeper.com/rm-hull/implicit-equations/status.svg)](https://jarkeeper.com/rm-hull/implicit-equations)
 
 Plotting implicit equations
 
