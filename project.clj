@@ -7,7 +7,7 @@
   :dependencies [
     [org.clojure/clojure "1.8.0"]
     [rm-hull/loose-labels "0.1.0"]
-    [rm-hull/infix "0.2.9"]]
+    [rm-hull/infix "0.2.10"]]
   :scm {:url "git@github.com:rm-hull/implicit-equations.git"}
   :source-paths ["src"]
   :jar-exclusions [#"(?:^|/).git"]
@@ -20,5 +20,5 @@
     :dev {
       :global-vars {*warn-on-reflection* true}
       :plugins [
-        [lein-codox "0.9.5"]
+        [lein-codox "0.9.7"]
         [lein-cloverage "1.0.6"]]}})
