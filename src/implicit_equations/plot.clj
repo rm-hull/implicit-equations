@@ -3,7 +3,7 @@
     [java.awt.image BufferedImage])
   (:require
     [implicit-equations.image :refer :all]
-    [implicit-equations.scheduler :refer [task join]]
+    [task-scheduler.core :refer [task join]]
     [infix.macros :refer [infix]]))
 
 (defn expand-bounds [bounds]
