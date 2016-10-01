@@ -6,7 +6,7 @@
     :url "http://opensource.org/licenses/MIT"}
   :dependencies [
     [rm-hull/loose-labels "0.1.0"]
-    [rm-hull/task-scheduler "0.1.0"]
+    [rm-hull/task-scheduler "0.2.0"]
     [rm-hull/infix "0.2.10"]]
   :scm {:url "git@github.com:rm-hull/implicit-equations.git"}
   :source-paths ["src"]

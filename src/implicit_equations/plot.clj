@@ -3,7 +3,7 @@
     [java.awt.image BufferedImage])
   (:require
     [implicit-equations.image :refer :all]
-    [task-scheduler.core :refer [task join]]
+    [task-scheduler.core :refer [fork join]]
     [infix.macros :refer [infix]]))
 
 (defn expand-bounds [bounds]
@@ -100,7 +100,7 @@
           g2d (create-graphics img)
           w (/ (:height opts) concurrency)
           bands (map #(vector (* % w) (* (inc %) w)) (range concurrency))
-          tasks (map #(task (render! img f % opts)) bands)]
+          tasks (map #(fork (render! img f % opts)) bands)]
       (doall (map join tasks))
       (write-png img name)
       (.dispose g2d)))
