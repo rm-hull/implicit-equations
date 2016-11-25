@@ -7,7 +7,7 @@
   :dependencies [
     [rm-hull/loose-labels "0.1.0"]
     [rm-hull/task-scheduler "0.2.1"]
-    [rm-hull/infix "0.2.10"]]
+    [rm-hull/infix "0.2.11"]]
   :scm {:url "git@github.com:rm-hull/implicit-equations.git"}
   :source-paths ["src"]
   :jar-exclusions [#"(?:^|/).git"]
