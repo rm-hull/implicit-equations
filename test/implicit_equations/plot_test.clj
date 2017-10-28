@@ -1,7 +1,7 @@
 (ns implicit-equations.plot-test
   (:require
-    [clojure.test :refer :all]
-    [implicit-equations.plot :refer :all]))
+   [clojure.test :refer :all]
+   [implicit-equations.plot :refer :all]))
 
 (deftest check-expand-bounds
   (is (= [10 10 -10 -10] (expand-bounds 10)))

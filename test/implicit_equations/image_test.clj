@@ -1,10 +1,10 @@
 (ns implicit-equations.image-test
   (:import
-    [java.awt Graphics2D RenderingHints]
-    [java.awt.image BufferedImage])
+   [java.awt Graphics2D RenderingHints]
+   [java.awt.image BufferedImage])
   (:require
-    [clojure.test :refer :all]
-    [implicit-equations.image :refer :all]))
+   [clojure.test :refer :all]
+   [implicit-equations.image :refer :all]))
 
 (deftest check-opacity
   (is (=  0x0EADBABE (opacity 0xADBABE 0x0E)))

@@ -1,20 +1,20 @@
 (ns implicit-equations.plot
   (:import
-    [java.awt.image BufferedImage])
+   [java.awt.image BufferedImage])
   (:require
-    [implicit-equations.image :refer :all]
-    [task-scheduler.core :refer [fork join]]
-    [infix.macros :refer [infix]]))
+   [implicit-equations.image :refer :all]
+   [task-scheduler.core :refer [fork join]]
+   [infix.macros :refer [infix]]))
 
 (defn expand-bounds [bounds]
   (if (number? bounds)
     (expand-bounds [bounds])
     (let [[a b c d] bounds]
-    (case (min 4 (count bounds))
-      2 [a  b (- a) (- b)]
-      3 [a  b c (- b)]
-      4 [a  b c d]
-      [a  a (- a) (- a)]))))
+      (case (min 4 (count bounds))
+        2 [a  b (- a) (- b)]
+        3 [a  b c (- b)]
+        4 [a  b c d]
+        [a  a (- a) (- a)]))))
 
 (defn wrap-translation [eqn [top left bottom right] [w h]]
   (let [delta-x (double (/ (- left right) w))
@@ -79,13 +79,12 @@
           (when (or (not= sign nsigny1) (not= sign nsigny2))
             (draw-vert sign x y)))))))
 
-(def default-opts {
-  :bounds 10
-  :width 600
-  :height 600
-  :rgb 0xFF0000
-  :line-width 2
-  :step 0.02 })
+(def default-opts {:bounds 10
+                   :width 600
+                   :height 600
+                   :rgb 0xFF0000
+                   :line-width 2
+                   :step 0.02})
 
 (comment
   (def n-cpu (.availableProcessors (Runtime/getRuntime)))
@@ -112,37 +111,37 @@
     (infix (x ** 2 - 1) ** 2 - y ** 2 . (3 + 2 . y)))
 
   (defn biology [x y]
-    (infix sin(sin x + cos y) - cos(sin(x . y) + cos x)))
+    (infix sin (sin x + cos y) - cos (sin (x . y) + cos x)))
 
   (defn chain-mesh [x y]
-    (infix sin((x ** 2) + (y ** 2)) - cos(x . y)))
+    (infix sin ((x ** 2) + (y ** 2)) - cos (x . y)))
 
   (defn checkerboard [x y]
-    (infix exp(sin x + cos y) - sin(exp(x + y))))
+    (infix exp (sin x + cos y) - sin (exp (x + y))))
 
   (defn dizzy [x y]
-    (infix abs(sin(x ** 2 - y ** 2)) - (sin(x + y) + cos(x . y))))
+    (infix abs (sin (x ** 2 - y ** 2)) - (sin (x + y) + cos (x . y))))
 
   (defn bands [x y]
-    (infix sin(1 - x ** 2) . sin(2 - y ** 2) . x . y - cos (2 - y ** 2)))
+    (infix sin (1 - x ** 2) . sin (2 - y ** 2) . x . y - cos (2 - y ** 2)))
 
   (defn glint [x y]
-    (infix abs(sin(x ** 2 + 2 . x . y)) - sin(x - 2 . y)))
+    (infix abs (sin (x ** 2 + 2 . x . y)) - sin (x - 2 . y)))
 
   (defn spira [x y]
-    (infix sin(x ** 2 + y ** 2) - sin(x ÷ y ** 2)))
+    (infix sin (x ** 2 + y ** 2) - sin (x ÷ y ** 2)))
 
   ; 8-core   4-core   1-core
   ; ========================
   ; 184ms vs 320ms vs 917ms
-  (time (draw 1 quadrifolium "doc/quadrifolium.png" { :bounds 1 :line-width 4}))
-  (time (draw 4 quadrifolium "doc/quadrifolium.png" { :bounds 1 :line-width 4}))
-  (time (draw 8 quadrifolium "doc/quadrifolium.png" { :bounds 1 :line-width 4}))
+  (time (draw 1 quadrifolium "doc/quadrifolium.png" {:bounds 1 :line-width 4}))
+  (time (draw 4 quadrifolium "doc/quadrifolium.png" {:bounds 1 :line-width 4}))
+  (time (draw 8 quadrifolium "doc/quadrifolium.png" {:bounds 1 :line-width 4}))
 
   ; 176ms vs 276ms vs 704ms
-  (time (draw 1 knot-curve "doc/knot-curve.png" { :bounds 5 :line-width 2}))
-  (time (draw 4 knot-curve "doc/knot-curve.png" { :bounds 5 :line-width 2}))
-  (time (draw 8 knot-curve "doc/knot-curve.png" { :bounds 5 :line-width 2}))
+  (time (draw 1 knot-curve "doc/knot-curve.png" {:bounds 5 :line-width 2}))
+  (time (draw 4 knot-curve "doc/knot-curve.png" {:bounds 5 :line-width 2}))
+  (time (draw 8 knot-curve "doc/knot-curve.png" {:bounds 5 :line-width 2}))
 
   ; 575ms vs 963 vs 2297ms
   (time (draw 1 biology "doc/biology.png"))
@@ -165,9 +164,9 @@
   (time (draw 8 dizzy "doc/dizzy.png"))
 
   ; 984ms vs 2303ms
-  (time (draw 1 bands "doc/bands.png" { :bounds (* 2 Math/PI) }))
-  (time (draw 4 bands "doc/bands.png" { :bounds (* 2 Math/PI) }))
-  (time (draw 8 bands "doc/bands.png" { :bounds (* 2 Math/PI) }))
+  (time (draw 1 bands "doc/bands.png" {:bounds (* 2 Math/PI)}))
+  (time (draw 4 bands "doc/bands.png" {:bounds (* 2 Math/PI)}))
+  (time (draw 8 bands "doc/bands.png" {:bounds (* 2 Math/PI)}))
 
   ; 1044ms vs 1478ms vs 2804ms
   (time (draw 1 glint "doc/glint.png"))
@@ -177,6 +176,5 @@
   ; 1409ms vs 1870ms vs 3579ms
   (time (draw 1 spira "doc/spira.png"))
   (time (draw 4 spira "doc/spira.png"))
-  (time (draw 8 spira "doc/spira.png"))
-)
+  (time (draw 8 spira "doc/spira.png")))
 

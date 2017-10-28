@@ -1,8 +1,8 @@
 (ns implicit-equations.image
   (:import
-    [java.awt Graphics2D RenderingHints]
-    [java.awt.image BufferedImage]
-    [javax.imageio ImageIO]))
+   [java.awt Graphics2D RenderingHints]
+   [java.awt.image BufferedImage]
+   [javax.imageio ImageIO]))
 
 (defn opacity [rgb alpha]
   (bit-or rgb (bit-shift-left (unchecked-byte alpha) 24)))
