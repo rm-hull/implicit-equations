@@ -4,7 +4,7 @@
 [![Dependencies Status](https://jarkeeper.com/rm-hull/implicit-equations/status.svg)](https://jarkeeper.com/rm-hull/implicit-equations)
 [![Maintenance](https://img.shields.io/maintenance/yes/2017.svg?maxAge=2592000)]()
 
-Plotting implicit equations. In mathematics, an implicit equation is a relation of the form
+In mathematics, an implicit equation is a relation of the form
 _R(x<sub>1</sub>,...,x<sub>n</sub>) = 0_, where _R_ is a function of several variables (often
 a polynomial). For example, the implicit equation of the unit circle is
 _x<sup>2</sup> + y<sup>2</sup> - 1 = 0_.
