@@ -108,6 +108,7 @@ Refined from: http://mathematica.stackexchange.com/questions/19590/what-is-a-goo
 * http://mathematica.stackexchange.com/questions/69421/plot-of-implicit-equations
 * http://wmueller.com/precalculus/newfunc/4.html
 * https://en.wikipedia.org/wiki/Implicit_curve
+* http://www-groups.dcs.st-and.ac.uk/~history/Curves/Curves.html
 
 ## License
 
