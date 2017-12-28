@@ -26,11 +26,14 @@
             y (+ start-y (* j delta-y))]
         (neg? (eqn x y))))))
 
+(defn clamp [b]
+  (bit-and 0xFF (int b)))
+
 (defn render! [^BufferedImage img f [start end] {:keys [bounds line-width width height rgb step] :as opts}]
   (let [bounds (expand-bounds bounds)
         f (wrap-translation f bounds [width height])
         solid-color (opacity rgb 0xFF)
-        half-line-width (/ line-width 2)
+        half-line-width (max 1.0 (/ line-width 2.0))
 
         calc-wx (fn [sign x y]
                   (if (= (f x y) sign)
@@ -43,24 +46,24 @@
                     y))
 
         draw-horiz (fn [sign x y]
-                     (let [delta (* 0x100 (- (calc-wx sign x y) x))
+                     (let [delta (clamp (* 0xFF (- (calc-wx sign x y) x)))
                            left (max 0 (- x half-line-width))
                            right (min (dec width) (+ left line-width))]
-                       (set-pixel img left y (opacity rgb (- 0x100 delta)))
+                       (set-pixel img left y (opacity rgb (- 0xFF delta)))
                        (set-pixel img right y (opacity rgb delta))
                        (loop [x (inc left)]
-                         (when (< x right)
+                         (when (<= x (dec right))
                            (set-pixel img x y solid-color)
                            (recur (inc x))))))
 
         draw-vert (fn [sign x y]
-                    (let [delta (* 0x100 (- (calc-wy sign x y) y))
+                    (let [delta (clamp (* 0xFF (- (calc-wy sign x y) y)))
                           top (max 0 (- y half-line-width))
                           bottom (min (dec height) (+ top line-width))]
-                      (set-pixel img x top (opacity rgb (- 0x100 delta)))
+                      (set-pixel img x top (opacity rgb (- 0xFF delta)))
                       (set-pixel img x bottom (opacity rgb delta))
                       (loop [y (inc top)]
-                        (when (< y bottom)
+                        (when (<= y (dec bottom))
                           (set-pixel img x y solid-color)
                           (recur (inc y))))))]
 
@@ -87,6 +90,9 @@
                    :step 0.02})
 
 (comment
+
+  (set! *unchecked-math* true)
+
   (def n-cpu (.availableProcessors (Runtime/getRuntime)))
 
   (use 'implicit-equations.plot)
@@ -119,7 +125,7 @@
   (defn checkerboard [x y]
     (infix exp (sin x + cos y) - sin (exp (x + y))))
 
-  (defn dizzy [x y]
+  (defn dizzy [^double x ^double y]
     (infix abs (sin (x ** 2 - y ** 2)) - (sin (x + y) + cos (x . y))))
 
   (defn bands [x y]
@@ -130,6 +136,54 @@
 
   (defn spira [x y]
     (infix sin (x ** 2 + y ** 2) - sin (x ÷ y ** 2)))
+
+  (defn rectangle [w h]
+    (fn [^double x ^double y]
+      (max (- (Math/abs x) w) (- (Math/abs y) h))))
+
+  (defn square [sz]
+    (rectangle sz sz))
+
+  (defn ellipse [a b]
+    (fn [^double x ^double y]
+      (infix (sqrt((x / a) ** 2 + (y / b) ** 2)) - 1)))
+
+  (defn circle [r]
+    (ellipse 1 1))
+
+  (defn translate [^double dx ^double dy eqn]
+    (fn [x y]
+      (eqn (+ x dx) (+ y dy))))
+
+  (defn rotate [^double theta eqn]
+    (let [cos-theta (Math/cos theta)
+          sin-theta (Math/sin theta)]
+      (fn [x y]
+        (eqn (- (* x cos-theta) (* y sin-theta))
+             (+ (* x sin-theta) (* y cos-theta))))))
+
+  (defn rmin [r]
+    (let [pi4 (/ Math/PI 4)
+          neg-r (- r)
+          r-sqrt2 (* r (Math/sqrt 2))]
+      (fn [^double a ^double b]
+        (if (>= (Math/abs (- a b)) r)
+          (min a b)
+          (+ b (* r (Math/sin (+ pi4 (Math/asin (/ (- a b) r-sqrt2))))) neg-r)))))
+
+  (defn union
+    ([r a b] (fn [x y] ((rmin r) (a x y) (b x y))))
+    ([r a b c] (union r a (union r b c)))
+    ([r a b c d] (union r a (union r b (union r c d)))))
+
+  (def shape
+    (rotate 0 ;(/ Math/PI 3)
+      (union 0.5
+        (translate 0 -2.75 (ellipse 1.0 1.5))
+        (translate 0 0.75 (ellipse 1.0 1.5))
+        (translate -0.75 -1.0 (rectangle 1.0 1.5)))))
+
+  (time (draw 4 shape "doc/union.png" {:bounds 5 :line-width 2 :step 0.001}))
 
   ; 8-core   4-core   1-core
   ; ========================
