@@ -109,6 +109,9 @@ Refined from: http://mathematica.stackexchange.com/questions/19590/what-is-a-goo
 * http://wmueller.com/precalculus/newfunc/4.html
 * https://en.wikipedia.org/wiki/Implicit_curve
 * http://www-groups.dcs.st-and.ac.uk/~history/Curves/Curves.html
+* http://www.implicitcad.org/
+* https://christopherolah.wordpress.com/2011/11/06/manipulation-of-implicit-functions-with-an-eye-on-cad/
+* https://en.wikipedia.org/wiki/Marching_squares
 
 ## License
 
