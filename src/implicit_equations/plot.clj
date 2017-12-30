@@ -1,22 +1,30 @@
 (ns implicit-equations.plot
   (:import
+   [java.awt Graphics2D Color]
    [java.awt.image BufferedImage])
   (:require
+   [graph.heckbert :refer :all]
    [implicit-equations.image :refer :all]
    [task-scheduler.core :refer [fork join]]
    [infix.macros :refer [infix]]))
 
+(defn fit-labels [[top right bottom left]]
+  (let [min-max (juxt first last)
+        [left right] (min-max (values (loose-label left right)))
+        [bottom top] (min-max (values (loose-label bottom top)))]
+    [top right bottom left]))
+
 (defn expand-bounds [bounds]
   (if (number? bounds)
     (expand-bounds [bounds])
-    (let [[a b c d] bounds]
+    (let [[top right bottom left] bounds]
       (case (min 4 (count bounds))
-        2 [a  b (- a) (- b)]
-        3 [a  b c (- b)]
-        4 [a  b c d]
-        [a  a (- a) (- a)]))))
+        2 [top right (- top) (- right)]
+        3 [top right bottom (- right)]
+        4 [top right bottom left]
+        [top top (- top) (- top)]))))
 
-(defn wrap-translation [eqn [top left bottom right] [w h]]
+(defn wrap-translation [eqn [top right bottom left] [w h]]
   (let [delta-x (double (/ (- left right) w))
         delta-y (double (/ (- bottom top) h)) ; flip horizontal axis
         start-x right
@@ -24,14 +32,14 @@
     (fn [i j]
       (let [x (+ start-x (* i delta-x))
             y (+ start-y (* j delta-y))]
-        (neg? (eqn x y))))))
+        (eqn x y)))))
 
 (defn clamp [b]
   (bit-and 0xFF (int b)))
 
 (defn render! [^BufferedImage img f [start end] {:keys [bounds line-width width height rgb step] :as opts}]
-  (let [bounds (expand-bounds bounds)
-        f (wrap-translation f bounds [width height])
+  (let [bounds (fit-labels (expand-bounds bounds))
+        f (wrap-translation (fn [x y] (neg? (f x y))) bounds [width height])
         solid-color (opacity rgb 0xFF)
         half-line-width (max 1.0 (/ line-width 2.0))
 
@@ -82,12 +90,49 @@
           (when (or (not= sign nsigny1) (not= sign nsigny2))
             (draw-vert sign x y)))))))
 
+
 (def default-opts {:bounds 10
                    :width 600
                    :height 600
                    :rgb 0xFF0000
                    :line-width 2
-                   :step 0.02})
+                   :step 0.02
+                   :gridlines false
+                   })
+
+(defn draw-lines [lower upper size draw-fn & [divisor]]
+  (let [intervals (count (loose-label lower upper))
+        step (/ size (dec intervals))]
+    (doall
+      (for [i (range 0 size (/ step (or divisor 1)))]
+        (draw-fn i)))))
+
+(defn add-gridlines! [^Graphics2D g2d { :keys [bounds width height]}]
+  (let [[top right bottom left] (expand-bounds bounds)]
+    (.setColor g2d Color/LIGHT_GRAY)
+    (draw-lines bottom top height #(.drawLine g2d 0 % width %) 10)
+    (draw-lines left right height #(.drawLine g2d % 0 % height) 10)
+
+    (.setColor g2d Color/GRAY)
+    (draw-lines bottom top height #(.drawLine g2d 0 % width %))
+    (draw-lines left right height #(.drawLine g2d % 0 % height))
+
+    (.drawLine g2d 0 height width height)
+    (.drawLine g2d width 0 width height)))
+
+(defn draw [concurrency f name & [opts]]
+  (let [opts (merge default-opts opts)
+        img (create-image (inc (:width opts)) (inc (:height opts)))
+        g2d (create-graphics img)
+        w (/ (:height opts) concurrency)
+        bands (map #(vector (* % w) (* (inc %) w)) (range concurrency))
+        tasks (map #(fork (render! img f % opts)) bands)]
+    (when (:gridlines opts)
+      (add-gridlines! g2d opts))
+    (doall (map join tasks))
+    (write-png img name)
+    (.dispose g2d)))
+
 
 (comment
 
@@ -99,16 +144,6 @@
   (use 'infix.macros)
   (use 'infix.math)
 
-  (defn draw [concurrency f name & [opts]]
-    (let [opts (merge default-opts opts)
-          img (create-image (:width opts) (:height opts))
-          g2d (create-graphics img)
-          w (/ (:height opts) concurrency)
-          bands (map #(vector (* % w) (* (inc %) w)) (range concurrency))
-          tasks (map #(fork (render! img f % opts)) bands)]
-      (doall (map join tasks))
-      (write-png img name)
-      (.dispose g2d)))
 
   (defn quadrifolium [x y]
     (infix (x ** 2 + y ** 2) ** 3 - x ** 2 * y ** 2))
@@ -183,14 +218,14 @@
         (translate 0 0.75 (ellipse 1.0 1.5))
         (translate -0.75 -1.0 (rectangle 1.0 1.5)))))
 
-  (time (draw 4 shape "doc/union.png" {:bounds 5 :line-width 2 :step 0.001}))
+  (time (draw 4 shape "doc/union.png" {:bounds 5 :line-width 2 :step 0.001 :gridlines true}))
 
   ; 8-core   4-core   1-core
   ; ========================
   ; 184ms vs 320ms vs 917ms
-  (time (draw 1 quadrifolium "doc/quadrifolium.png" {:bounds 1 :line-width 4}))
-  (time (draw 4 quadrifolium "doc/quadrifolium.png" {:bounds 1 :line-width 4}))
-  (time (draw 8 quadrifolium "doc/quadrifolium.png" {:bounds 1 :line-width 4}))
+  (time (draw 1 quadrifolium "doc/quadrifolium.png" {:bounds 0.5 :line-width 4}))
+  (time (draw 4 quadrifolium "doc/quadrifolium.png" {:bounds 0.5 :line-width 4}))
+  (time (draw 8 quadrifolium "doc/quadrifolium.png" {:bounds 0.5 :line-width 4}))
 
   ; 176ms vs 276ms vs 704ms
   (time (draw 1 knot-curve "doc/knot-curve.png" {:bounds 5 :line-width 2}))
@@ -203,6 +238,7 @@
   (time (draw 8 biology "doc/biology.png"))
 
   ; 1280 vs 1709ms vs 3204ms
+
   (time (draw 1 chain-mesh "doc/chain-mesh.png"))
   (time (draw 4 chain-mesh "doc/chain-mesh.png"))
   (time (draw 8 chain-mesh "doc/chain-mesh.png"))
