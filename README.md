@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/rm-hull/implicit-equations.svg?branch=master)](http://travis-ci.org/rm-hull/implicit-equations)
 [![Coverage Status](https://coveralls.io/repos/rm-hull/implicit-equations/badge.svg?branch=master)](https://coveralls.io/r/rm-hull/implicit-equations?branch=master)
 [![Dependencies Status](https://versions.deps.co/rm-hull/implicit-equations/status.svg)](https://versions.deps.co/rm-hull/implicit-equations)
-[![Maintenance](https://img.shields.io/maintenance/yes/2018.svg?maxAge=2592000)]()
+[![Maintenance](https://img.shields.io/maintenance/yes/2019.svg?maxAge=2592000)]()
 
 In mathematics, an implicit equation is a relation of the form
 _R(x<sub>1</sub>,...,x<sub>n</sub>) = 0_, where _R_ is a function of several variables (often
