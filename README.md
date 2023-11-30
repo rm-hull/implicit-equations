@@ -1,7 +1,6 @@
 # Implicit Equations
 
 [![Build Status](https://github.com/rm-hull/implicit-equations/actions/workflows/clojure.yml/badge.svg)](https://github.com/rm-hull/implicit-equations/actions/workflows/clojure.yml)
-[![Build Status](https://travis-ci.org/rm-hull/implicit-equations.svg?branch=main)](http://travis-ci.org/rm-hull/implicit-equations)
 [![Coverage Status](https://coveralls.io/repos/rm-hull/implicit-equations/badge.svg?branch=main)](https://coveralls.io/r/rm-hull/implicit-equations?branch=main)
 [![Dependencies Status](https://versions.deps.co/rm-hull/implicit-equations/status.svg)](https://versions.deps.co/rm-hull/implicit-equations)
 [![Maintenance](https://img.shields.io/maintenance/yes/2023.svg?maxAge=2592000)]()
