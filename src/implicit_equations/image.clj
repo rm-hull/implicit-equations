@@ -25,7 +25,7 @@
 (defn set-pixel [^BufferedImage img x y rgba]
   (let [a (alpha rgba)]
     (when (or (>= a 0x80) (> a (alpha (.getRGB img x y)))))
-     (.setRGB img x y rgba)))
+    (.setRGB img x y rgba)))
 
 (defn write-png [^BufferedImage image filename]
   (ImageIO/write image "png" (clojure.java.io/file filename)))

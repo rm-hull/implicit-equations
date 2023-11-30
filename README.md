@@ -1,8 +1,10 @@
 # Implicit Equations
-[![Build Status](https://travis-ci.org/rm-hull/implicit-equations.svg?branch=master)](http://travis-ci.org/rm-hull/implicit-equations)
-[![Coverage Status](https://coveralls.io/repos/rm-hull/implicit-equations/badge.svg?branch=master)](https://coveralls.io/r/rm-hull/implicit-equations?branch=master)
+
+[![Build Status](https://github.com/rm-hull/implicit-equations/actions/workflows/clojure.yml/badge.svg)](https://github.com/rm-hull/implicit-equations/actions/workflows/clojure.yml)
+[![Build Status](https://travis-ci.org/rm-hull/implicit-equations.svg?branch=main)](http://travis-ci.org/rm-hull/implicit-equations)
+[![Coverage Status](https://coveralls.io/repos/rm-hull/implicit-equations/badge.svg?branch=main)](https://coveralls.io/r/rm-hull/implicit-equations?branch=main)
 [![Dependencies Status](https://versions.deps.co/rm-hull/implicit-equations/status.svg)](https://versions.deps.co/rm-hull/implicit-equations)
-[![Maintenance](https://img.shields.io/maintenance/yes/2019.svg?maxAge=2592000)]()
+[![Maintenance](https://img.shields.io/maintenance/yes/2023.svg?maxAge=2592000)]()
 
 In mathematics, an implicit equation is a relation of the form
 _R(x<sub>1</sub>,...,x<sub>n</sub>) = 0_, where _R_ is a function of several variables (often
@@ -27,14 +29,16 @@ command - this renders onto a `BufferedImage` when the equation crosses zero:
 ```clojure
 (draw quadrifolium "graph.png" {:bounds 1 :line-width 4})
 ```
+
 to produce:
 
-![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/quadrifolium.png)
+![PNG](https://rawgithub.com/rm-hull/implicit-equations/main/doc/quadrifolium.png)
 
 Other equations produce the following plots:
 
 ### Knot Curve
-![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/knot-curve.png)
+
+![PNG](https://rawgithub.com/rm-hull/implicit-equations/main/doc/knot-curve.png)
 
 ```clojure
 (defn knot-curve [x y]
@@ -42,7 +46,8 @@ Other equations produce the following plots:
 ```
 
 ### Biology
-![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/biology.png)
+
+![PNG](https://rawgithub.com/rm-hull/implicit-equations/main/doc/biology.png)
 
 ```clojure
 (defn biology [x y]
@@ -50,7 +55,8 @@ Other equations produce the following plots:
 ```
 
 ### Chain-mesh
-![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/chain-mesh.png)
+
+![PNG](https://rawgithub.com/rm-hull/implicit-equations/main/doc/chain-mesh.png)
 
 ```clojure
 (defn chain-mesh [x y]
@@ -58,7 +64,8 @@ Other equations produce the following plots:
 ```
 
 ### Checkerboard
-![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/checkerboard.png)
+
+![PNG](https://rawgithub.com/rm-hull/implicit-equations/main/doc/checkerboard.png)
 
 ```clojure
 (defn checkerboard [x y]
@@ -66,7 +73,8 @@ Other equations produce the following plots:
 ```
 
 ### Dizzy
-![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/dizzy.png)
+
+![PNG](https://rawgithub.com/rm-hull/implicit-equations/main/doc/dizzy.png)
 
 ```clojure
 (defn dizzy [x y]
@@ -74,7 +82,8 @@ Other equations produce the following plots:
 ```
 
 ### Glint
-![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/glint.png)
+
+![PNG](https://rawgithub.com/rm-hull/implicit-equations/main/doc/glint.png)
 
 ```clojure
 (defn glint [x y]
@@ -82,7 +91,8 @@ Other equations produce the following plots:
 ```
 
 ### Spira
-![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/spira.png)
+
+![PNG](https://rawgithub.com/rm-hull/implicit-equations/main/doc/spira.png)
 
 ```clojure
 (defn spira [x y]
@@ -90,7 +100,8 @@ Other equations produce the following plots:
 ```
 
 ### Bands
-![PNG](https://rawgithub.com/rm-hull/implicit-equations/master/doc/bands.png)
+
+![PNG](https://rawgithub.com/rm-hull/implicit-equations/main/doc/bands.png)
 
 ```clojure
 (defn bands [x y]
@@ -101,17 +112,17 @@ Refined from: http://mathematica.stackexchange.com/questions/19590/what-is-a-goo
 
 ## References
 
-* http://www.xamuel.com/graphs-of-implicit-equations/
-* http://www.peda.com/grafeq/
-* http://www.padowan.dk/
-* http://doc.sagemath.org/html/en/reference/plot3d/sage/plot/plot3d/implicit_plot3d.html
-* http://mathematica.stackexchange.com/questions/69421/plot-of-implicit-equations
-* http://wmueller.com/precalculus/newfunc/4.html
-* https://en.wikipedia.org/wiki/Implicit_curve
-* http://www-groups.dcs.st-and.ac.uk/~history/Curves/Curves.html
-* http://www.implicitcad.org/
-* https://christopherolah.wordpress.com/2011/11/06/manipulation-of-implicit-functions-with-an-eye-on-cad/
-* https://en.wikipedia.org/wiki/Marching_squares
+- http://www.xamuel.com/graphs-of-implicit-equations/
+- http://www.peda.com/grafeq/
+- http://www.padowan.dk/
+- http://doc.sagemath.org/html/en/reference/plot3d/sage/plot/plot3d/implicit_plot3d.html
+- http://mathematica.stackexchange.com/questions/69421/plot-of-implicit-equations
+- http://wmueller.com/precalculus/newfunc/4.html
+- https://en.wikipedia.org/wiki/Implicit_curve
+- http://www-groups.dcs.st-and.ac.uk/~history/Curves/Curves.html
+- http://www.implicitcad.org/
+- https://christopherolah.wordpress.com/2011/11/06/manipulation-of-implicit-functions-with-an-eye-on-cad/
+- https://en.wikipedia.org/wiki/Marching_squares
 
 ## License
 

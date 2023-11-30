@@ -90,24 +90,22 @@
           (when (or (not= sign nsigny1) (not= sign nsigny2))
             (draw-vert sign x y)))))))
 
-
 (def default-opts {:bounds 10
                    :width 600
                    :height 600
                    :rgb 0xFF0000
                    :line-width 2
                    :step 0.02
-                   :gridlines false
-                   })
+                   :gridlines false})
 
 (defn draw-lines [lower upper size draw-fn & [divisor]]
   (let [intervals (count (loose-label lower upper))
         step (/ size (dec intervals))]
     (doall
-      (for [i (range 0 size (/ step (or divisor 1)))]
-        (draw-fn i)))))
+     (for [i (range 0 size (/ step (or divisor 1)))]
+       (draw-fn i)))))
 
-(defn add-gridlines! [^Graphics2D g2d { :keys [bounds width height]}]
+(defn add-gridlines! [^Graphics2D g2d {:keys [bounds width height]}]
   (let [[top right bottom left] (expand-bounds bounds)]
     (.setColor g2d Color/LIGHT_GRAY)
     (draw-lines bottom top height #(.drawLine g2d 0 % width %) 10)
@@ -133,7 +131,6 @@
     (write-png img name)
     (.dispose g2d)))
 
-
 (comment
 
   (set! *unchecked-math* true)
@@ -143,7 +140,6 @@
   (use 'implicit-equations.plot)
   (use 'infix.macros)
   (use 'infix.math)
-
 
   (defn quadrifolium [x y]
     (infix (x ** 2 + y ** 2) ** 3 - x ** 2 * y ** 2))
@@ -181,7 +177,7 @@
 
   (defn ellipse [a b]
     (fn [^double x ^double y]
-      (infix (sqrt((x / a) ** 2 + (y / b) ** 2)) - 1)))
+      (infix (sqrt ((x / a) ** 2 + (y / b) ** 2)) - 1)))
 
   (defn circle [r]
     (ellipse 1 1))
@@ -213,10 +209,10 @@
 
   (def shape
     (rotate 0 ;(/ Math/PI 3)
-      (union 0.5
-        (translate 0 -2.75 (ellipse 1.0 1.5))
-        (translate 0 0.75 (ellipse 1.0 1.5))
-        (translate -0.75 -1.0 (rectangle 1.0 1.5)))))
+            (union 0.5
+                   (translate 0 -2.75 (ellipse 1.0 1.5))
+                   (translate 0 0.75 (ellipse 1.0 1.5))
+                   (translate -0.75 -1.0 (rectangle 1.0 1.5)))))
 
   (time (draw 4 shape "doc/union.png" {:bounds 5 :line-width 2 :step 0.001 :gridlines true}))
 
